@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clock CSS 2</title>
+  </head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      background-color: #1e1e1e;
+    }
+    .clock-container {
+      display: flex;
+      align-items: center;
+      height: 100vh;
+      justify-content: center;
+    }
+    #clock {
+      width: 40vh;
+      height: 40vh;
+      background-color: crimson;
+      border-radius: 50%;
+    }
+    .timeSecond {
+      position: absolute;
+      color: #1e1e1e;
+      width: 5px;
+      height: 50px;
+    }
+  </style>
+  <body>
+    <div class="clock-container">
+      <div id="clock">
+        <div class="hand seconds"></div>
+        <div class="hand minutes"></div>
+        <div class="hand hours"></div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function everySecond() {
+      const date = new Date();
+      console.log("second", date);
+    }
+  </script>
+</html>

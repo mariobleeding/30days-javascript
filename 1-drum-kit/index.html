@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DrumKit JS 1</title>
+  </head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      background-color: #1e1e1e;
+      color: whitesmoke;
+      font-family: monospace;
+    }
+
+    .keys {
+      display: flex;
+      align-items: center;
+      height: 100vh;
+      justify-content: center;
+    }
+
+    button {
+      padding: 0.5rem;
+      background-color: none;
+      border: none;
+      border-bottom: 2px crimson solid;
+      color: crimson;
+      margin: 0.5rem;
+      transition: all 90ms ease;
+    }
+
+    .playing {
+      background-color: crimson;
+      color: whitesmoke;
+      padding: 1rem;
+    }
+  </style>
+  <body>
+    <div class="keys">
+      <button id="boom" class="key">A</button>
+      <button id="clap" class="key">S</button>
+      <button id="hihat" class="key">D</button>
+      <button id="kick" class="key">F</button>
+      <button id="openhat" class="key">G</button>
+      <button id="ride" class="key">H</button>
+      <button id="snare" class="key">J</button>
+      <button id="tink" class="key">K</button>
+      <button id="tom" class="key">L</button>
+    </div>
+  </body>
+  <script>
+    const btns = document.getElementsByClassName("key");
+    const sounds = {};
+
+    function playSound(filename) {
+      if (sounds[filename]) {
+        sounds[filename].play();
+        sounds[filename].currentTime = 0;
+      }
+    }
+
+    function handlePlaySound(filename) {
+      const btn = document.getElementById(`${filename}`);
+      btn.classList.add("playing");
+      playSound(filename);
+
+      setTimeout(() => {
+        btn.classList.remove("playing");
+      }, 300);
+    }
+
+    Array.from(btns).forEach((btn) => {
+      const file = btn.id;
+      sounds[file] = new Audio(`./sounds/${file}.wav`);
+
+      btn.addEventListener("click", () => {
+        handlePlaySound(file);
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      const key = event.key.toLowerCase();
+      Array.from(btns).forEach((btn) => {
+        const file = btn.id;
+        if (key === btn.textContent.toLowerCase()) {
+          handlePlaySound(file);
+        }
+      });
+    });
+  </script>
+</html>
