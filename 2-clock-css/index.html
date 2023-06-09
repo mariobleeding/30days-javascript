@@ -14,36 +14,63 @@
     }
     .clock-container {
       display: flex;
+      justify-content: center;
       align-items: center;
       height: 100vh;
-      justify-content: center;
     }
     #clock {
-      width: 40vh;
-      height: 40vh;
+      width: 50vh;
+      height: 50vh;
       background-color: crimson;
       border-radius: 50%;
     }
-    .timeSecond {
+    .hand {
       position: absolute;
-      color: #1e1e1e;
-      width: 5px;
-      height: 50px;
+      top: 50%;
+      width: 50%;
+      height: 5px;
+      background-color: black;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    }
+    .hand-hours {
+      background-color: white;
     }
   </style>
   <body>
     <div class="clock-container">
       <div id="clock">
-        <div class="hand seconds"></div>
-        <div class="hand minutes"></div>
-        <div class="hand hours"></div>
+        <div class="hand hand-seconds"></div>
+        <div class="hand hand-minutes"></div>
+        <div class="hand hand-hours"></div>
       </div>
     </div>
   </body>
   <script>
-    function everySecond() {
+    let handSeconds = document.querySelector(".hand-seconds");
+    let handMinutes = document.querySelector(".hand-minutes");
+    let handHours = document.querySelector(".hand-hours");
+
+    function setDate() {
       const date = new Date();
-      console.log("second", date);
+
+      let seconds = date.getSeconds();
+      let minutes = date.getMinutes();
+      let hours = date.getHours();
+
+      const secondsDegree = (seconds / 60) * 360 + 90;
+      const minutesDegree = (minutes / 60) * 360 + 90;
+      const hoursDegree = (hours / 12) * 360 + 90;
+
+      handSeconds.style.transform = `rotate(${secondsDegree}deg)`;
+      handMinutes.style.transform = `rotate(${minutesDegree}deg)`;
+      handHours.style.transform = `rotate(${hoursDegree}deg)`;
+      console.log(seconds, minutes, hours);
     }
+    setInterval(() => {
+      setDate();
+    }, 1000);
   </script>
 </html>
