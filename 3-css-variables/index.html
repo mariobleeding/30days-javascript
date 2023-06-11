@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSSVariables</title>
+  </head>
+  <style>
+    :root {
+      --base: yellow;
+      --spacing: 10px;
+      --blur: 0px;
+    }
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    img {
+      width: 100%;
+      padding: var(--spacing);
+      filter: blur(var(--blur));
+    }
+    .img-wrapper {
+      justify-content: center;
+      display: flex;
+      background-color: var(--base);
+    }
+    ul {
+      margin: 3rem;
+    }
+  </style>
+  <body>
+    <ul>
+      <div id="controls">
+        <label for="spacing-picker">Spacing</label>
+        <input
+          type="range"
+          name="spacing"
+          id="blur-picker"
+          value="10"
+          min="10"
+          max="220"
+          data-sizing="px"
+        />
+        <label for="color-picker">Color</label>
+        <input type="color" name="color" id="color-picker" value="#1e1e1e" />
+        <label for="blur-picker">Blur</label>
+        <input
+          type="range"
+          name="blur"
+          id="blur-picker"
+          value="3"
+          min="0"
+          max="25"
+          data-string="px"
+        />
+      </div>
+    </ul>
+    <div class="img-wrapper">
+      <img
+        src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80"
+        alt="city wallpaper"
+      />
+    </div>
+    <script>
+      const inputs = document.querySelectorAll(".controls input");
+
+      function handleUpdate(e) {
+        console.log(e.value);
+      }
+
+      inputs.forEach((input) =>
+        input.addEventListener("change", handleUpdate(e))
+      );
+    </script>
+  </body>
+</html>
